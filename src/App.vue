@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-xl">
     <global-header :user="currentUser" />
     <column-list :list="list"></column-list>
   </div>
@@ -58,4 +58,10 @@ export default defineComponent({
   }
 })
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.dropdown-option.is-disabled * {
+  color: #6c757d;
+  pointer-events: none;
+  background-color: transparent;
+}
+</style>
