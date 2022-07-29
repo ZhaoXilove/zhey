@@ -1,30 +1,37 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container">
+    <column-list :list="list"></column-list>
+  </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script lang="ts">
+import { defineComponent } from 'vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import ColumnList, { ColumnListProp } from './components/ColumnList.vue'
+const testData: ColumnListProp[] = [
+  {
+    id: 1,
+    avatar: require('@/assets/logo.png'),
+    title: 'test1的专栏',
+    description: 'test1的description'
+  },
+  {
+    id: 2,
+    avatar: require('@/assets/logo.png'),
+    title: 'test2的专栏',
+    description: 'test2的description'
+  }
+]
+export default defineComponent({
+  name: 'App',
+  components: {
+    ColumnList
+  },
+  setup() {
+    return {
+      list: testData
     }
   }
-}
+})
+</script>
+<style lang="scss">
 </style>
