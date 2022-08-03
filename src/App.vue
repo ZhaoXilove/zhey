@@ -36,6 +36,7 @@ import ColumnList from '_c/ColumnList.vue'
 import ValidateInput, { RulesProp } from '@/custom/ValidateInput.vue'
 import GlobalHeader from '_c/GlobalHeader.vue'
 import ValidateForm from '_c/Form/ValidateForm.vue'
+import { createLogger } from 'vuex'
 const testData: ColumnListProp[] = [
   {
     id: 1,
@@ -97,9 +98,10 @@ export default defineComponent({
         emailRef.message = '不能为空'
       }
     }
-    const onFormSubmit = (result: boolean) => {
-      console.log(inputRef.value.validateInput())
-      console.log('1234', result)
+    const onFormSubmit = (result: any) => {
+      /*     console.log(inputRef.value.validateInput())
+      console.log('1234', result) */
+      console.log('result', result)
     }
     return {
       list: testData,
