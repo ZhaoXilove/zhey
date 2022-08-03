@@ -1,34 +1,30 @@
 <template>
   <div class="container-xl">
     <global-header :user="currentUser" />
-    <form>
-      <div class="mt-3">
+    <validate-form @form-submit="onFormSubmit">
+      <div class="mb-3">
         <label class="form-label">邮箱地址</label>
-        <validate-input :rules="emailRules" v-model="emailVal" />
-      </div>
-      <div class="mb-3 my-4">
-        <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <input
-          type="email"
-          v-model="emailRef.val"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          @blur="validateEmail"
+        <validate-input
+          :rules="emailRules"
+          v-model="emailVal"
+          placeholder="请输入邮箱地址"
+          type="text"
+          ref="inputRef"
         />
-        <div class="form-text" v-if="emailRef.error">
-          {{ emailRef.message }}
-        </div>
       </div>
       <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">密码</label>
-        <input
+        <label class="form-label">密码</label>
+        <validate-input
+          :rules="psdRules"
+          v-model="psdlVal"
+          placeholder="请输入密码"
           type="password"
-          class="form-control"
-          id="exampleInputPassword1"
         />
       </div>
-    </form>
+      <template #submit>
+        <span class="btn btn-danger">Submit</span>
+      </template>
+    </validate-form>
     <!-- <column-list :list="list"></column-list> -->
   </div>
 </template>
@@ -39,6 +35,7 @@ import UserProps from '@/types/GlobalHeader'
 import ColumnList from '_c/ColumnList.vue'
 import ValidateInput, { RulesProp } from '@/custom/ValidateInput.vue'
 import GlobalHeader from '_c/GlobalHeader.vue'
+import ValidateForm from '_c/Form/ValidateForm.vue'
 const testData: ColumnListProp[] = [
   {
     id: 1,
@@ -78,13 +75,17 @@ export default defineComponent({
   components: {
     ColumnList,
     GlobalHeader,
-    ValidateInput
+    ValidateInput,
+    ValidateForm
   },
   setup() {
-    const emailVal = ref('viking')
+    const inputRef = ref<any>()
+    const emailVal = ref('123@test')
+    const psdlVal = ref('123')
     const emailRules: RulesProp = [
       { type: 'required', message: '电子邮箱地址不能为空' }
     ]
+    const psdRules: RulesProp = [{ type: 'required', message: '密码不能为空' }]
     const emailRef = reactive({
       val: '',
       error: false,
@@ -96,13 +97,21 @@ export default defineComponent({
         emailRef.message = '不能为空'
       }
     }
+    const onFormSubmit = (result: boolean) => {
+      console.log(inputRef.value.validateInput())
+      console.log('1234', result)
+    }
     return {
       list: testData,
       currentUser,
       emailRef,
       validateEmail,
       emailRules,
-      emailVal
+      psdRules,
+      emailVal,
+      psdlVal,
+      onFormSubmit,
+      inputRef
     }
   }
 })

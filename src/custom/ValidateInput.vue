@@ -8,6 +8,7 @@
       :value="inputRef.val"
       @blur="validateInput"
       @input="updateValue"
+      v-bind="$attrs"
     />
     <span class="invalid-feedback" v-if="inputRef.error">{{
       inputRef.message
@@ -16,7 +17,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue'
+import { emitter } from '_c/Form/ValidateForm.vue'
+import { defineComponent, reactive, onMounted, PropType } from 'vue'
 interface RuleProp {
   type: 'required' | 'email'
   message: string
@@ -27,6 +29,7 @@ export default defineComponent({
     rules: Array as PropType<RulesProp>,
     modelValue: String
   },
+  inheritAttrs: false,
   setup(props, context) {
     const inputRef = reactive({
       val: props.modelValue || '',
@@ -53,13 +56,18 @@ export default defineComponent({
           return passed
         })
         inputRef.error = !allPassed
+        return allPassed
       }
 
       if (inputRef.val.trim() === '') {
         inputRef.error = true
-        inputRef.message = '不能为空'
+        inputRef.message !== '' ? inputRef.message : '不能为空'
+        // inputRef.message = '不能为空'
       }
     }
+    onMounted(() => {
+      emitter.emit('form-item-created', inputRef.val)
+    })
     return {
       inputRef,
       validateInput,
