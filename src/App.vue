@@ -1,14 +1,43 @@
 <template>
   <div class="container-xl">
     <global-header :user="currentUser" />
-    <column-list :list="list"></column-list>
+    <form>
+      <div class="mt-3">
+        <label class="form-label">邮箱地址</label>
+        <validate-input :rules="emailRules" v-model="emailVal" />
+      </div>
+      <div class="mb-3 my-4">
+        <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
+        <input
+          type="email"
+          v-model="emailRef.val"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          @blur="validateEmail"
+        />
+        <div class="form-text" v-if="emailRef.error">
+          {{ emailRef.message }}
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">密码</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
+      </div>
+    </form>
+    <!-- <column-list :list="list"></column-list> -->
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
 import ColumnListProp from '@/types/ColumnList'
 import UserProps from '@/types/GlobalHeader'
 import ColumnList from '_c/ColumnList.vue'
+import ValidateInput, { RulesProp } from '@/custom/ValidateInput.vue'
 import GlobalHeader from '_c/GlobalHeader.vue'
 const testData: ColumnListProp[] = [
   {
@@ -48,12 +77,32 @@ export default defineComponent({
   name: 'App',
   components: {
     ColumnList,
-    GlobalHeader
+    GlobalHeader,
+    ValidateInput
   },
   setup() {
+    const emailVal = ref('viking')
+    const emailRules: RulesProp = [
+      { type: 'required', message: '电子邮箱地址不能为空' }
+    ]
+    const emailRef = reactive({
+      val: '',
+      error: false,
+      message: ''
+    })
+    const validateEmail = () => {
+      if (emailRef.val.trim() === '') {
+        emailRef.error = true
+        emailRef.message = '不能为空'
+      }
+    }
     return {
       list: testData,
-      currentUser
+      currentUser,
+      emailRef,
+      validateEmail,
+      emailRules,
+      emailVal
     }
   }
 })
