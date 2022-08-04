@@ -26,7 +26,7 @@ export default createStore<GlobalDataProps>({
     columns: testData,
     posts: testPosts,
     user: {
-      isLogin: true,
+      isLogin: false,
       name: 'viking',
       columnId: 1
     }
