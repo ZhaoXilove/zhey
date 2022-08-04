@@ -1,14 +1,21 @@
 import { createStore } from 'vuex'
-import ColumnListProp, {
-  testData,
-  testPosts,
-  PostProps
-} from '@/types/ColumnList'
+import ColumnListProp, { testData, testPosts } from '@/types/ColumnList'
 interface UserProps {
   isLogin: boolean
   name?: string
   id?: number
+  columnId?: number
 }
+
+export interface PostProps {
+  id: number
+  title: string
+  content?: string
+  image?: string
+  createdAt?: string
+  columnId: number
+}
+
 export interface GlobalDataProps {
   columns: ColumnListProp[]
   posts: PostProps[]
@@ -19,12 +26,17 @@ export default createStore<GlobalDataProps>({
     columns: testData,
     posts: testPosts,
     user: {
-      isLogin: false
+      isLogin: true,
+      name: 'viking',
+      columnId: 1
     }
   },
   mutations: {
     login(state) {
       state.user = { ...state.user, isLogin: true, name: 'viking' }
+    },
+    createPost(state, newPost) {
+      state.posts.push(newPost)
     }
   },
   getters: {
