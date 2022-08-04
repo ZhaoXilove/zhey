@@ -1,28 +1,25 @@
 <template>
-  <div class="app">
-    <div class="container-xl">
-      <global-header :user="currentUser" />
-      <router-view></router-view>
-      <footer class="text-center py-4 text-secondary bg-light mt-6">
-        <small>
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item">©2020 者也专栏</li>
-            <li class="list-inline-item">课程</li>
-            <li class="list-inline-item">文档</li>
-            <li class="list-inline-item">联系</li>
-            <li class="list-inline-item">更多</li>
-          </ul>
-        </small>
-      </footer>
-    </div>
+  <div class="index">
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <img src="../assets/callout.svg" alt="callout" class="w-50" />
+          <h2 class="font-weight-light">随心写作，自由表达</h2>
+          <p>
+            <a href="#" class="btn btn-primary my-2">开始写文章</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <h4 class="font-weight-bold text-center">发现精彩</h4>
+    <column-list :list="list"></column-list>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ColumnListProp from '@/types/ColumnList'
-import UserProps from '@/types/GlobalHeader'
-import ColumnList from '_c/ColumnList.vue'
-import GlobalHeader from '_c/GlobalHeader.vue'
+import ColumnList from '@/components/ColumnList.vue'
 const testData: ColumnListProp[] = [
   {
     id: 1,
@@ -53,28 +50,15 @@ const testData: ColumnListProp[] = [
       '读报金句摘抄： 1.很少和你说谢谢，因为觉得太过官方，但就在此刻真的好想跟你说谢谢'
   }
 ]
-const currentUser: UserProps = {
-  isLogin: false,
-  name: 'dell'
-}
 export default defineComponent({
-  name: 'App',
+  name: 'Home',
   components: {
-    ColumnList,
-    GlobalHeader
+    ColumnList
   },
   setup() {
     return {
-      list: testData,
-      currentUser
+      list: testData
     }
   }
 })
 </script>
-<style lang="scss">
-.dropdown-option.is-disabled * {
-  color: #6c757d;
-  pointer-events: none;
-  background-color: transparent;
-}
-</style>

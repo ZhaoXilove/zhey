@@ -1,13 +1,21 @@
 <template>
   <nav class="navbar navbar-dark bg-primary mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">者也专栏</a>
+      <router-link class="navbar-brand" to="/">者也专栏</router-link>
       <ul v-if="!user.isLogin" class="list-inline mb-0">
         <li class="list-inline-item">
-          <button type="button" class="btn btn-outline-light my-2">登录</button>
+          <router-link to="/login">
+            <button type="button" class="btn btn-outline-light my-2">
+              登录
+            </button>
+          </router-link>
         </li>
         <li class="list-inline-item">
-          <button type="button" class="btn btn-outline-light my-2">注册</button>
+          <router-link to="/login">
+            <button type="button" class="btn btn-outline-light my-2">
+              注册
+            </button>
+          </router-link>
         </li>
       </ul>
       <ul v-else class="list-inline mb-0">

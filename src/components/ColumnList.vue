@@ -1,7 +1,6 @@
 <template>
-  <div class="row">
-    <div
-      class="col-12 col-sm-12 col-lg-4 col-md-6 mt-4"
+  <div class="row pb-4">
+    <div class="col-12 col-sm-12 col-lg-4 col-md-6 mt-4"
       v-for="column in columnList"
       :key="column.id"
     >
