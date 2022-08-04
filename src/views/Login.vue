@@ -30,6 +30,7 @@ import { defineComponent, ref, reactive } from 'vue'
 import UserProps from '@/types/GlobalHeader'
 import ValidateInput, { RulesProp } from '@/custom/ValidateInput.vue'
 import ValidateForm from '_c/Form/ValidateForm.vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'Login',
   components: {
@@ -37,6 +38,7 @@ export default defineComponent({
     ValidateForm
   },
   setup() {
+    const router = useRouter()
     const inputRef = ref<any>()
     const emailVal = ref('123@test')
     const psdlVal = ref('123')
@@ -56,9 +58,12 @@ export default defineComponent({
       }
     }
     const onFormSubmit = (result: any) => {
-      /*     console.log(inputRef.value.validateInput())
+      /*console.log(inputRef.value.validateInput())
       console.log('1234', result) */
       console.log('result', result)
+      if (result) {
+        router.replace({ name: 'ColumnDetail', params: { id: 1 } })
+      }
     }
     return {
       emailRef,

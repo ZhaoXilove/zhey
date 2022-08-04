@@ -1,6 +1,7 @@
 <template>
   <div class="row pb-4">
-    <div class="col-12 col-sm-12 col-lg-4 col-md-6 mt-4"
+    <div
+      class="col-12 col-sm-12 col-lg-4 col-md-6 mt-4"
       v-for="column in columnList"
       :key="column.id"
     >
@@ -13,7 +14,11 @@
           />
           <h5 class="card-title">{{ column.title }}</h5>
           <p class="card-text text-left">{{ column.description }}</p>
-          <a href="#" class="btn btn-outline-primary">进入专栏</a>
+          <router-link
+            :to="`/column-detail/${column.id}`"
+            class="btn btn-outline-primary"
+            >进入专栏</router-link
+          >
         </div>
       </div>
     </div>

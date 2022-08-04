@@ -11,6 +11,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue')
+  },
+  {
+    path: '/column-detail/:id',
+    name: 'ColumnDetail',
+    component: () =>
+      import(/* webpackChunkName: "column-detail" */ '@/views/ColumnDetail.vue')
   }
 ]
 
