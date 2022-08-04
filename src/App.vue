@@ -18,11 +18,12 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
 import ColumnListProp from '@/types/ColumnList'
 import UserProps from '@/types/GlobalHeader'
 import ColumnList from '_c/ColumnList.vue'
 import GlobalHeader from '_c/GlobalHeader.vue'
+import { useStore } from 'vuex'
 const testData: ColumnListProp[] = [
   {
     id: 1,
@@ -64,6 +65,8 @@ export default defineComponent({
     GlobalHeader
   },
   setup() {
+    const store = useStore()
+    const currentUser = computed(() => store.state.user)
     return {
       list: testData,
       currentUser

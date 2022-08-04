@@ -31,6 +31,7 @@ import UserProps from '@/types/GlobalHeader'
 import ValidateInput, { RulesProp } from '@/custom/ValidateInput.vue'
 import ValidateForm from '_c/Form/ValidateForm.vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 export default defineComponent({
   name: 'Login',
   components: {
@@ -38,6 +39,7 @@ export default defineComponent({
     ValidateForm
   },
   setup() {
+    const stroe = useStore()
     const router = useRouter()
     const inputRef = ref<any>()
     const emailVal = ref('123@test')
@@ -62,7 +64,8 @@ export default defineComponent({
       console.log('1234', result) */
       console.log('result', result)
       if (result) {
-        router.replace({ name: 'ColumnDetail', params: { id: 1 } })
+        router.replace('/')
+        stroe.commit('login')
       }
     }
     return {
